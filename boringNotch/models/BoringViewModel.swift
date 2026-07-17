@@ -40,6 +40,9 @@ class BoringViewModel: NSObject, ObservableObject {
     let webcamManager = WebcamManager.shared
     @Published var isCameraExpanded: Bool = false
     @Published var isRequestingAuthorization: Bool = false
+
+    let claudeUsageViewModel = ClaudeUsageViewModel.shared
+    @Published var isClaudeUsageExpanded: Bool = false
     
     deinit {
         destroy()
@@ -175,7 +178,13 @@ class BoringViewModel: NSObject, ObservableObject {
             break
         }
     }
-    
+
+    func toggleClaudeUsage() {
+        withAnimation {
+            isClaudeUsageExpanded.toggle()
+        }
+    }
+
     func isMouseHovering(position: NSPoint = NSEvent.mouseLocation) -> Bool {
         let screenFrame = getScreenFrame(screenUUID)
         if let frame = screenFrame {

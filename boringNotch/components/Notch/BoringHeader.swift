@@ -13,10 +13,13 @@ struct BoringHeader: View {
     @ObservedObject var batteryModel = BatteryStatusViewModel.shared
     @ObservedObject var coordinator = BoringViewCoordinator.shared
     @StateObject var tvm = ShelfStateViewModel.shared
+    @Default(.boringShelf) var shelfEnabled
+    @Default(.enableClipboardHistory) var clipboardEnabled
+    @Default(.showClaudeUsage) var claudeUsageEnabled
     var body: some View {
         HStack(spacing: 0) {
             HStack {
-                if (!tvm.isEmpty || coordinator.alwaysShowTabs) && Defaults[.boringShelf] {
+                if ((!tvm.isEmpty || coordinator.alwaysShowTabs) && shelfEnabled) || clipboardEnabled {
                     TabSelectionView()
                 } else if vm.notchState == .open {
                     EmptyView()
@@ -51,6 +54,22 @@ struct BoringHeader: View {
                                     .frame(width: 30, height: 30)
                                     .overlay {
                                         Image(systemName: "web.camera")
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .imageScale(.medium)
+                                    }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        if claudeUsageEnabled {
+                            Button(action: {
+                                vm.toggleClaudeUsage()
+                            }) {
+                                Capsule()
+                                    .fill(.black)
+                                    .frame(width: 30, height: 30)
+                                    .overlay {
+                                        Image(systemName: "gauge.badge.minus")
                                             .foregroundColor(.white)
                                             .padding()
                                             .imageScale(.medium)

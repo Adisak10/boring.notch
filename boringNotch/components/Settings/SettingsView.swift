@@ -51,6 +51,12 @@ struct SettingsView: View {
                 NavigationLink(value: "Shelf") {
                     Label("Shelf", systemImage: "books.vertical")
                 }
+                NavigationLink(value: "Clipboard") {
+                    Label("Clipboard", systemImage: "doc.on.clipboard")
+                }
+                NavigationLink(value: "Claude Usage") {
+                    Label("Claude Usage", systemImage: "gauge.with.needle")
+                }
                 NavigationLink(value: "Shortcuts") {
                     Label("Shortcuts", systemImage: "keyboard")
                 }
@@ -85,6 +91,10 @@ struct SettingsView: View {
                     Charge()
                 case "Shelf":
                     Shelf()
+                case "Clipboard":
+                    ClipboardSettings()
+                case "Claude Usage":
+                    ClaudeUsageSettings()
                 case "Shortcuts":
                     Shortcuts()
                 case "Extensions":
@@ -1018,6 +1028,52 @@ struct Shelf: View {
     }
 }
 
+struct ClipboardSettings: View {
+    @ObservedObject private var viewModel = ClipboardHistoryViewModel.shared
+
+    var body: some View {
+        Form {
+            Section {
+                Defaults.Toggle(key: .enableClipboardHistory) {
+                    Text("Enable clipboard history")
+                }
+                Button("Clear History") {
+                    viewModel.clear()
+                }
+                .disabled(viewModel.isEmpty)
+            } header: {
+                Text("General")
+            } footer: {
+                Text("Keeps the last \(ClipboardHistoryViewModel.historyLimit) copied texts and images in a Clipboard tab in the notch. Confidential content, such as passwords copied from password managers, is never recorded.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .accentColor(.effectiveAccent)
+        .navigationTitle("Clipboard")
+    }
+}
+
+struct ClaudeUsageSettings: View {
+    var body: some View {
+        Form {
+            Section {
+                Defaults.Toggle(key: .showClaudeUsage) {
+                    Text("Show Claude usage in notch")
+                }
+            } header: {
+                Text("General")
+            } footer: {
+                Text("Displays your Claude 5-hour and 7-day usage next to the camera in the open notch. Requires being logged in to Claude Code; macOS will ask permission to read the Claude Code credentials from your Keychain the first time.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .accentColor(.effectiveAccent)
+        .navigationTitle("Claude Usage")
+    }
+}
+
 //struct Extensions: View {
 //    @State private var effectTrigger: Bool = false
 //    var body: some View {
@@ -1739,6 +1795,13 @@ struct Shortcuts: View {
             }
             Section {
                 KeyboardShortcuts.Recorder("Toggle Notch Open:", name: .toggleNotchOpen)
+            }
+            Section {
+                KeyboardShortcuts.Recorder("Open Clipboard History:", name: .clipboardHistoryPanel)
+            } footer: {
+                Text("Opens the notch on the Clipboard tab. Requires clipboard history to be enabled.")
+                    .foregroundStyle(.secondary)
+                    .font(.caption)
             }
         }
         .accentColor(.effectiveAccent)

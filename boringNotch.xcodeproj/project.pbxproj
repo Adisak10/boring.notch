@@ -12,6 +12,13 @@
 		1100292A2E8691B400035A57 /* FileShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110029292E8691B400035A57 /* FileShareView.swift */; };
 		1100292E2E86940F00035A57 /* QuickShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100292D2E86940F00035A57 /* QuickShareService.swift */; };
 		1113ABC52E80E27000EC13B2 /* ShelfItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113ABC32E80E27000EC13B2 /* ShelfItemView.swift */; };
+		D9B825F4E4A4761A9F84C81B /* ClipboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753248B24C5DE12F40A011D /* ClipboardModels.swift */; };
+		DB3AEB62E1AAA03633FF2860 /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13991D88DA46171E37F18CD0 /* ClipboardService.swift */; };
+		2EEFD57F32DDE6346D6B3A41 /* ClipboardHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EE964AD0D678F1142026FB /* ClipboardHistoryViewModel.swift */; };
+		60883F4DE7914962AE4CFF87 /* ClipboardHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777439862823E1EABFEEA2D1 /* ClipboardHistoryView.swift */; };
+		7474E9DBC4CB5A3BF20F5F5F /* ClaudeUsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8D87B0C4769B57B4A6C12F /* ClaudeUsageService.swift */; };
+		B56D3A07E966320666126022 /* ClaudeUsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772E3D4B2FE08B9CF176A1E /* ClaudeUsageViewModel.swift */; };
+		B707B2AA7AAE18C4E5668950 /* ClaudeUsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FC3D95054EF25DA2E3F36F /* ClaudeUsageView.swift */; };
 		1113ABC62E80E27000EC13B2 /* ShelfPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113ABBE2E80E27000EC13B2 /* ShelfPersistenceService.swift */; };
 		1113ABC82E80E27000EC13B2 /* ShelfItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113ABB72E80E27000EC13B2 /* ShelfItem.swift */; };
 		1113ABCA2E80E27000EC13B2 /* ShelfSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113ABC02E80E27000EC13B2 /* ShelfSelectionModel.swift */; };
@@ -192,6 +199,13 @@
 		1113ABBE2E80E27000EC13B2 /* ShelfPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfPersistenceService.swift; sourceTree = "<group>"; };
 		1113ABC02E80E27000EC13B2 /* ShelfSelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfSelectionModel.swift; sourceTree = "<group>"; };
 		1113ABC32E80E27000EC13B2 /* ShelfItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfItemView.swift; sourceTree = "<group>"; };
+		D753248B24C5DE12F40A011D /* ClipboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardModels.swift; sourceTree = "<group>"; };
+		13991D88DA46171E37F18CD0 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardService.swift; sourceTree = "<group>"; };
+		48EE964AD0D678F1142026FB /* ClipboardHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardHistoryViewModel.swift; sourceTree = "<group>"; };
+		777439862823E1EABFEEA2D1 /* ClipboardHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardHistoryView.swift; sourceTree = "<group>"; };
+		ED8D87B0C4769B57B4A6C12F /* ClaudeUsageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageService.swift; sourceTree = "<group>"; };
+		3772E3D4B2FE08B9CF176A1E /* ClaudeUsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageViewModel.swift; sourceTree = "<group>"; };
+		33FC3D95054EF25DA2E3F36F /* ClaudeUsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageView.swift; sourceTree = "<group>"; };
 		1113ABCF2E80E6BB00EC13B2 /* ThumbnailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailService.swift; sourceTree = "<group>"; };
 		111BE9942ECF2DEF0079DD4E /* DragDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDetector.swift; sourceTree = "<group>"; };
 		111BEA602ED09B1B0079DD4E /* NSScreen+UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSScreen+UUID.swift"; sourceTree = "<group>"; };
@@ -490,6 +504,8 @@
 				B1C448992C97375A001F0858 /* Tips */,
 				14C08BB72C8DE49E000F8AA0 /* Calendar */,
 				9A987A042C73CA66005CA465 /* Shelf */,
+				B728CE2EA4705D5362914786 /* Clipboard */,
+				F75D4DFC731588F603358737 /* ClaudeUsage */,
 				149E0B982C737D26006418B1 /* Webcam */,
 				B18654312C6F45AE000B926A /* Live activities */,
 				B18654302C6F4590000B926A /* Settings */,
@@ -656,6 +672,27 @@
 				1113ABC42E80E27000EC13B2 /* Views */,
 			);
 			path = Shelf;
+			sourceTree = "<group>";
+		};
+		B728CE2EA4705D5362914786 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				D753248B24C5DE12F40A011D /* ClipboardModels.swift */,
+				13991D88DA46171E37F18CD0 /* ClipboardService.swift */,
+				48EE964AD0D678F1142026FB /* ClipboardHistoryViewModel.swift */,
+				777439862823E1EABFEEA2D1 /* ClipboardHistoryView.swift */,
+			);
+			path = Clipboard;
+			sourceTree = "<group>";
+		};
+		F75D4DFC731588F603358737 /* ClaudeUsage */ = {
+			isa = PBXGroup;
+			children = (
+				ED8D87B0C4769B57B4A6C12F /* ClaudeUsageService.swift */,
+				3772E3D4B2FE08B9CF176A1E /* ClaudeUsageViewModel.swift */,
+				33FC3D95054EF25DA2E3F36F /* ClaudeUsageView.swift */,
+			);
+			path = ClaudeUsage;
 			sourceTree = "<group>";
 		};
 		B141C23B2CA5F50900AC8CC8 /* Onboarding */ = {
@@ -941,6 +978,13 @@
 				B1C974342C642B6D0000E707 /* MarqueeTextView.swift in Sources */,
 				14288DE82C6E01C800B9F80C /* ProgressIndicator.swift in Sources */,
 				1113ABC52E80E27000EC13B2 /* ShelfItemView.swift in Sources */,
+				D9B825F4E4A4761A9F84C81B /* ClipboardModels.swift in Sources */,
+				DB3AEB62E1AAA03633FF2860 /* ClipboardService.swift in Sources */,
+				2EEFD57F32DDE6346D6B3A41 /* ClipboardHistoryViewModel.swift in Sources */,
+				60883F4DE7914962AE4CFF87 /* ClipboardHistoryView.swift in Sources */,
+				7474E9DBC4CB5A3BF20F5F5F /* ClaudeUsageService.swift in Sources */,
+				B56D3A07E966320666126022 /* ClaudeUsageViewModel.swift in Sources */,
+				B707B2AA7AAE18C4E5668950 /* ClaudeUsageView.swift in Sources */,
 				1113ABC62E80E27000EC13B2 /* ShelfPersistenceService.swift in Sources */,
 				1113ABC82E80E27000EC13B2 /* ShelfItem.swift in Sources */,
 				1113ABCA2E80E27000EC13B2 /* ShelfSelectionModel.swift in Sources */,

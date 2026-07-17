@@ -15,10 +15,14 @@ import SwiftUI
 struct MusicPlayerView: View {
     @EnvironmentObject var vm: BoringViewModel
     let albumArtNamespace: Namespace.ID
+    var compact: Bool = false
 
     var body: some View {
         HStack {
-            AlbumArtView(vm: vm, albumArtNamespace: albumArtNamespace).padding(.all, 5)
+            if !compact {
+                AlbumArtView(vm: vm, albumArtNamespace: albumArtNamespace).padding(.all, 5)
+                    .transition(.opacity)
+            }
             MusicControlsView().drawingGroup().compositingGroup()
         }
     }
@@ -228,8 +232,10 @@ struct MusicControlsView: View {
         )
         let padded = slotConfig.padded(to: sanitizedLimit, filler: .none)
         let result = Array(padded.prefix(sanitizedLimit))
-        // If calendar and camera are both visible alongside music, hide the edge slots
-        let shouldHideEdges = Defaults[.showCalendar] && Defaults[.showMirror] && webcamManager.cameraAvailable && vm.isCameraExpanded
+        // If calendar and a side panel (camera or Claude usage) are both visible alongside music, hide the edge slots
+        let isCameraVisible = Defaults[.showMirror] && webcamManager.cameraAvailable && vm.isCameraExpanded
+        let isClaudeUsageVisible = Defaults[.showClaudeUsage] && vm.isClaudeUsageExpanded
+        let shouldHideEdges = Defaults[.showCalendar] && (isCameraVisible || isClaudeUsageVisible)
         if shouldHideEdges && result.count >= 5 {
             return Array(result.dropFirst().dropLast())
         }
@@ -423,6 +429,7 @@ struct NotchHomeView: View {
     @ObservedObject var webcamManager = WebcamManager.shared
     @ObservedObject var batteryModel = BatteryStatusViewModel.shared
     @ObservedObject var coordinator = BoringViewCoordinator.shared
+    @Default(.showClaudeUsage) var showClaudeUsage
     let albumArtNamespace: Namespace.ID
 
     var body: some View {
@@ -439,13 +446,30 @@ struct NotchHomeView: View {
         Defaults[.showMirror] && webcamManager.cameraAvailable && vm.isCameraExpanded
     }
 
+    private var shouldShowClaudeUsage: Bool {
+        showClaudeUsage && vm.isClaudeUsageExpanded
+    }
+
+    private var isAnySidePanelExpanded: Bool {
+        shouldShowCamera || shouldShowClaudeUsage
+    }
+
+    private var areBothSidePanelsExpanded: Bool {
+        shouldShowCamera && shouldShowClaudeUsage
+    }
+
+    private var calendarWidth: CGFloat {
+        if areBothSidePanelsExpanded { return 150 }
+        return isAnySidePanelExpanded ? 170 : 215
+    }
+
     private var mainContent: some View {
-        HStack(alignment: .top, spacing: (shouldShowCamera && Defaults[.showCalendar]) ? 10 : 15) {
-            MusicPlayerView(albumArtNamespace: albumArtNamespace)
+        HStack(alignment: .top, spacing: (isAnySidePanelExpanded && Defaults[.showCalendar]) ? 10 : 15) {
+            MusicPlayerView(albumArtNamespace: albumArtNamespace, compact: areBothSidePanelsExpanded)
 
             if Defaults[.showCalendar] {
                 CalendarView()
-                    .frame(width: shouldShowCamera ? 170 : 215)
+                    .frame(width: calendarWidth)
                     .onHover { isHovering in
                         vm.isHoveringCalendar = isHovering
                     }
@@ -459,6 +483,13 @@ struct NotchHomeView: View {
                     .opacity(vm.notchState == .closed ? 0 : 1)
                     .blur(radius: vm.notchState == .closed ? 20 : 0)
                     .animation(.interactiveSpring(response: 0.32, dampingFraction: 0.76, blendDuration: 0), value: shouldShowCamera)
+            }
+
+            if shouldShowClaudeUsage {
+                ClaudeUsageView()
+                    .opacity(vm.notchState == .closed ? 0 : 1)
+                    .blur(radius: vm.notchState == .closed ? 20 : 0)
+                    .transition(.opacity)
             }
         }
         .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .top)), removal: .opacity))
